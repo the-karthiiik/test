@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillSwap — Trade Skills, Not Money</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f7f9fc;
+      color: #333;
+    }
+    header {
+      background: #004aad;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #004aad;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      background: #004aad;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #00337f;
+    }
+    .skills-list {
+      margin-top: 30px;
+    }
+    .skill-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      background: #f9fbff;
+    }
+    .skill-card h3 {
+      margin-top: 0;
+      color: #004aad;
+    }
+    footer {
+      background: #004aad;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SkillSwap</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Find Skills</a>
+      <a href="#">Offer Skills</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Offer a Skill & Request a Skill</h2>
+    <p>Trade your skills with others. No money involved — only knowledge sharing.</p>
+    <form id="skillForm">
+      <div>
+        <label for="name">Your Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div>
+        <label for="email">Your Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div>
+        <label for="offer">Skill You Offer</label>
+        <input type="text" id="offer" required>
+      </div>
+      <div>
+        <label for="request">Skill You Want</label>
+        <input type="text" id="request" required>
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <label for="details">Details</label>
+        <textarea id="details" rows="4"></textarea>
+      </div>
+      <div style="grid-column: 1 / -1; text-align: right;">
+        <button type="submit">Add Skill Swap</button>
+      </div>
+    </form>
+
+    <div class="skills-list" id="skillsList">
+      <h2>Available Skill Swaps</h2>
+      <!-- Skill cards will appear here -->
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SkillSwap. Connect. Learn. Grow.</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('skillForm');
+    const skillsList = document.getElementById('skillsList');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const offer = document.getElementById('offer').value.trim();
+      const request = document.getElementById('request').value.trim();
+      const details = document.getElementById('details').value.trim();
+
+      if (!name || !email || !offer || !request) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      const card = document.createElement('div');
+      card.classList.add('skill-card');
+      card.innerHTML = `
+        <h3>${name}</h3>
+        <p><strong>Offers:</strong> ${offer}</p>
+        <p><strong>Wants:</strong> ${request}</p>
+        ${details ? `<p><em>${details}</em></p>` : ''}
+        <p><a href="mailto:${email}">Contact ${name}</a></p>
+      `;
+
+      skillsList.appendChild(card);
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
